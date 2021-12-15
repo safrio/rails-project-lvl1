@@ -25,7 +25,7 @@ module HexletCode
 
       def format_single_tag(tag, options) = "<#{tag}#{options}>"
 
-      def format_paired_tags(tag, options, block) = "<#{tag}#{options}>#{block}</#{tag}>"
+      def format_paired_tags(tag, options, block, splitter = '') = "<#{tag}#{options}>#{splitter}#{block}</#{tag}>"
     end
   end
 end

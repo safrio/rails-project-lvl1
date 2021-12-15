@@ -4,6 +4,11 @@ require 'test_helper'
 require 'minitest/autorun'
 
 class HexletCodeText < Minitest::Test
+  def setup
+    user = Struct.new(:name, :job, keyword_init: true)
+    @user = user.new name: 'rob'
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::HexletCode::VERSION
   end
@@ -49,5 +54,15 @@ class HexletCodeText < Minitest::Test
     assert_raises RuntimeError do
       HexletCode::Tag.build({})
     end
+  end
+
+  def test_form_for
+    test_instance = HexletCode.form_for @user
+    assert_equal test_instance, %(<form action="#" method="post">\n</form>)
+  end
+
+  def test_form_for_with_url
+    test_instance = HexletCode.form_for @user, url: '/users'
+    assert_equal test_instance, %(<form action="/users" method="post">\n</form>)
   end
 end
