@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['{lib}/**/*'] + ['Rakefile', 'README.md']
 
   spec.add_dependency 'rake'
+  spec.add_dependency 'slim'
 
   spec.add_development_dependency 'minitest'
 end
