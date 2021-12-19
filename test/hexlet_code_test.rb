@@ -20,11 +20,6 @@ class HexletCodeText < Minitest::Test
     assert_equal test_instance, '<br />'
   end
 
-  def test_single_tag_with_option
-    test_instance = Tag.build('img', src: 'path/to/image')
-    assert_equal test_instance, '<img src="path/to/image" />'
-  end
-
   def test_single_tag_with_options
     test_instance = Tag.build('input', type: 'submit', value: 'Save')
     assert_equal test_instance, '<input type="submit" value="Save" />'
@@ -66,10 +61,14 @@ class HexletCodeText < Minitest::Test
     test_instance = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
+      f.submit
     end
     assert_equal test_instance, %(<form action="#" method="post">
+<label for="name">Name</label>
 <input name="name" type="text" value="rob" />
+<label for="job">Job</label>
 <textarea cols="20" name="job" rows="40">hexlet</textarea>
+<input name="submit" type="submit" value="Save" />
 </form>)
   end
 

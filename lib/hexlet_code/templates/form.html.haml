@@ -1,6 +1,11 @@
-%form{attrs}>
-  - inputs.each do |input|
-    - if input&.dig(:opts, 0, :as) == :text
-      %textarea{input.reject { |k| [:opts, :value].include? k }.merge(cols: 20, rows: 40)} #{input[:value]}
-    - else
-      %input{input.reject { |k| k == :opts }.merge(type: 'text')}
+%form{form_attrs}>
+  - elements.each do |element|
+    - case element[:type]
+    - when :textarea
+      %label{for: element[:name]} #{element[:name].capitalize}
+      %textarea{element.reject { |k| [:opts, :value, :type].include? k }.merge(cols: 20, rows: 40)} #{element[:value]}
+    - when :text
+      %label{for: element[:name]} #{element[:name].capitalize}
+      %input{element.reject { |k| [:opts, :type].include? k }.merge(type: 'text')}
+    - when :submit
+      %input{element.merge(value: 'Save', name: 'submit').reject { |k| k == :opts }}

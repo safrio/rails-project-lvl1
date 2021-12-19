@@ -15,27 +15,31 @@ module HexletCode
   end
 
   class << self
-    attr_accessor :inputs, :attrs, :obj
+    attr_accessor :elements, :form_attrs, :data
 
-    def form_for(obj, url: '#', method: 'post', &block)
-      raise HexletCodeError, 'Object has not Struct parent' unless obj.class.ancestors.include? Struct
-
-      @inputs = []
-      @obj = obj
-      @attrs = { method: method, action: url }
+    def form_for(data, url: '#', method: 'post', &block)
+      @elements = []
+      @data = data
+      @form_attrs = { method: method, action: url }
 
       block&.call(self)
 
       Haml::Engine.new(form_template).render(form)
     end
 
-    def input(name, *opts) = inputs << { name: name, value: obj[name], opts: opts }
+    def input(name, opts = {})
+      elements << { name: name, value: data[name], opts: opts, type: get_type_by_opts(opts) }
+    end
+
+    def submit(opts = {}) = elements << { type: :submit, opts: opts }
 
     private
 
+    def get_type_by_opts(opts) = opts[:as]&.to_sym == :text ? :textarea : :text
+
     def form
-      Struct.new(:inputs, :attrs, keyword_init: true)
-            .new(inputs: inputs, attrs: @attrs)
+      Struct.new(:elements, :form_attrs, keyword_init: true)
+            .new(elements: elements, form_attrs: @form_attrs)
     end
 
     def form_template = File.read("#{Config::TEMPLATES}/form.html.haml")
