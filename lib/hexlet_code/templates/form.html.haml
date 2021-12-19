@@ -1,0 +1,6 @@
+%form{attrs}>
+  - inputs.each do |input|
+    - if input&.dig(:opts, 0, :as) == :text
+      %textarea{input.reject { |k| [:opts, :value].include? k }.merge(cols: 20, rows: 40)} #{input[:value]}
+    - else
+      %input{input.reject { |k| k == :opts }.merge(type: 'text')}

@@ -3,44 +3,41 @@
 require_relative 'hexlet_code/version'
 require_relative 'hexlet_code/tag'
 require_relative 'hexlet_code/error'
+require_relative 'hexlet_code/config'
+require 'haml'
+require 'haml/template/options'
 
 module HexletCode
-  LINE_SPLITTER = "\n"
+  def initialize(*args)
+    Haml::Options.defaults[:attr_wrapper] = '"'
+    Haml::Options.defaults[:format] = :xhtml
+    super
+  end
 
   class << self
-    attr_accessor :inputs, :obj
+    attr_accessor :inputs, :attrs, :obj
 
     def form_for(obj, url: '#', method: 'post', &block)
       raise HexletCodeError, 'Object has not Struct parent' unless obj.class.ancestors.include? Struct
 
       @inputs = []
       @obj = obj
+      @attrs = { method: method, action: url }
+
       block&.call(self)
 
-      options = get_action(url, method)
-      block = inputs.join LINE_SPLITTER
-      HexletCode::Tag.format_paired_tags('form', options, block, LINE_SPLITTER)
+      Haml::Engine.new(form_template).render(form)
     end
 
-    def input(name, as: nil, cols: 20, rows: 40)
-      value = obj[name]
-      return inputs << render_textarea(name, value, cols, rows) if as == :text
-
-      inputs << render_input(name, value)
-    end
+    def input(name, *opts) = inputs << { name: name, value: obj[name], opts: opts }
 
     private
 
-    def get_action(url, method) = %( action="#{url}" method="#{method}")
-
-    def render_input(name, value)
-      options = HexletCode::Tag.render_options([name: name, type: 'text', value: value])
-      HexletCode::Tag.format_single_tag('input', options)
+    def form
+      Struct.new(:inputs, :attrs, keyword_init: true)
+            .new(inputs: inputs, attrs: @attrs)
     end
 
-    def render_textarea(name, value, cols, rows)
-      options = HexletCode::Tag.render_options([cols: cols, rows: rows, name: name])
-      HexletCode::Tag.format_paired_tags('textarea', options, value)
-    end
+    def form_template = File.read("#{Config::TEMPLATES}/form.html.haml")
   end
 end
