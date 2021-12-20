@@ -1,11 +1,11 @@
 %form{form_attrs}>
   - elements.each do |element|
-    - case element[:type]
-    - when :textarea
-      %label{for: element[:name]} #{element[:name].capitalize}
-      %textarea{element.reject { |k| [:opts, :value, :type].include? k }.merge(cols: 20, rows: 40)} #{element[:value]}
-    - when :text
-      %label{for: element[:name]} #{element[:name].capitalize}
-      %input{element.reject { |k| [:opts, :type].include? k }.merge(type: 'text')}
-    - when :submit
-      %input{element.merge(value: 'Save', name: 'submit').reject { |k| k == :opts }}
+    - case element.class.to_s
+    - when 'Textarea'
+      %label{for: element.attrs[:name]} #{element.attrs[:name].capitalize}
+      %textarea{element.attrs} #{element.value}
+    - when 'Text'
+      %label{for: element.attrs[:name]} #{element.attrs[:name].capitalize}
+      %input{element.attrs}
+    - when 'Submit'
+      %input{element.attrs}
