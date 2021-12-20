@@ -24,10 +24,10 @@ Or install it yourself as:
 
 ```ruby
 HexletCode::Tag.build('br')
-# <br>
+# <br />
 
 HexletCode::Tag.build('img', src: 'path/to/image')
-# <img src="path/to/image">
+# <img src="path/to/image" />
 
 HexletCode::Tag.build('input', type: 'submit', value: 'Save')
 # <input type="submit" value="Save">
@@ -43,7 +43,7 @@ HexletCode::Tag.build('div')
 # <div></div>
 ```
 
-Also it can generate forms by Struct's structure:
+Also it can generate forms with data model:
 ```ruby
 User = Struct.new(:name, :job, :gender, keyword_init: true)
 user = User.new name: 'rob', job: 'hexlet', gender: 'm'
@@ -51,11 +51,15 @@ user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 HexletCode.form_for user do |f|
   f.input :name
   f.input :job, as: :text
+  f.submit
 end
 
 # <form action="#" method="post">
-#   <input name="name" type="text" value="rob">
-#   <textarea cols="20" rows="40" name="job">hexlet</textarea>
+#   <label for="name">Name</label>
+#   <input name="name" type="text" value="rob" />
+#   <label for="job">Job</label>
+#   <textarea cols="20" name="job" rows="40">hexlet</textarea>
+#   <input name="submit" type="submit" value="Save" />
 # </form>
 ```
 
