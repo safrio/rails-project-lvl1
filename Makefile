@@ -5,6 +5,6 @@ test:
 	rake test
 
 lint:
-	rubocop ./lib ./test
+	bundle exec rubocop ./lib ./test
 
 .PHONY: test
