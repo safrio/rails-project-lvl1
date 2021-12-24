@@ -2,9 +2,8 @@
 
 module HexletCode
   module Config
-    TEMPLATES = File.join(
-      File.dirname(File.absolute_path(__FILE__)),
-      'templates'
-    )
+    LINE_SPLITTER = "\n"
+    MAX_INLINE_BLOCK_LENGTH = 20
+    SINGLE_TAGS = %i[br hr img input].freeze
   end
 end

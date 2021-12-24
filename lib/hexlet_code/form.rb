@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './config'
+require_relative './elements/element'
 require_relative './elements/text'
 require_relative './elements/textarea'
 require_relative './elements/submit'
@@ -25,12 +26,10 @@ module HexletCode
 
     def submit(value = nil, attrs = {}) = elements << Submit.new(value: value, attrs: attrs)
 
-    def render = Haml::Engine.new(form_template).render(self)
+    def render = Tag.build('form', form_attrs) { elements.map(&:render).join Config::LINE_SPLITTER }
 
     private
 
     def textarea?(attrs) = attrs[:as]&.to_sym == :text
-
-    def form_template = File.read("#{Config::TEMPLATES}/form.html.haml")
   end
 end

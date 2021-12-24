@@ -2,15 +2,17 @@
 
 # rubocop:disable Lint/MissingSuper
 
-require_relative './element'
+module HexletCode
+  class Submit < Element
+    REQUIRED_ATTRS = { type: 'submit' }.freeze
 
-class Submit < Element
-  REQUIRED_ATTRS = { type: 'submit' }.freeze
+    def initialize(value:, attrs:)
+      default_attrs = { name: 'submit', value: value || 'Save' }
 
-  def initialize(value:, attrs:)
-    default_attrs = { name: 'submit', value: value || 'Save' }
+      @attrs = default_attrs.merge(attrs, REQUIRED_ATTRS)
+    end
 
-    @attrs = default_attrs.merge(attrs, REQUIRED_ATTRS)
+    def render = Tag.build('input', attrs)
   end
 end
 
