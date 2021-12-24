@@ -47,14 +47,10 @@ class HexletCodeText < Minitest::Test
     end
   end
 
-  def test_form_for
-    test_instance = HexletCode.form_for @user
-    assert_equal test_instance, %(<form action="#" method="post">\n</form>)
-  end
-
-  def test_form_for_with_url
-    test_instance = HexletCode.form_for @user, url: '/users'
-    assert_equal test_instance, %(<form action="/users" method="post">\n</form>)
+  def test_error_empty_form
+    assert_raises HexletCodeError do
+      HexletCode.form_for @user
+    end
   end
 
   def test_form_for_with_block
