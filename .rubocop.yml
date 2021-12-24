@@ -1,0 +1,15 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0
+
+Style/Documentation:
+  Enabled: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Naming/MethodParameterName:
+    MinNameLength: 2
