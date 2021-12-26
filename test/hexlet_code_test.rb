@@ -15,38 +15,6 @@ class HexletCodeText < Minitest::Test
     refute_nil VERSION
   end
 
-  def test_single_tag
-    test_instance = Tag.build('br')
-    assert_equal test_instance, '<br />'
-  end
-
-  def test_single_tag_with_options
-    test_instance = Tag.build('input', type: 'submit', value: 'Save')
-    assert_equal test_instance, '<input type="submit" value="Save" />'
-  end
-
-  def test_paired_tag_with_block
-    test_instance = Tag.build('label') { 'Email' }
-    assert_equal test_instance, '<label>Email</label>'
-  end
-
-  def test_paired_tag_with_block_and_option
-    test_instance = Tag.build('label', for: 'email') { 'Email' }
-    assert_equal test_instance, '<label for="email">Email</label>'
-  end
-
-  def test_error_empty_tag
-    assert_raises HexletCodeError do
-      Tag.build('')
-    end
-  end
-
-  def test_error_tag_type
-    assert_raises HexletCodeError do
-      Tag.build({})
-    end
-  end
-
   def test_error_empty_form
     assert_raises HexletCodeError do
       HexletCode.form_for @user
