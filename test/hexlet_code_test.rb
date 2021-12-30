@@ -27,13 +27,7 @@ class HexletCodeText < Minitest::Test
       f.input :job, as: :text
       f.submit
     end
-    assert_equal test_instance, %(<form action="#" method="post">
-<label for="name">Name</label>
-<input name="name" type="text" value="rob" />
-<label for="job">Job</label>
-<textarea cols="20" name="job" rows="40">hexlet</textarea>
-<input name="submit" type="submit" value="Save" />
-</form>)
+    assert_equal test_instance, fixture('test_form_for_with_block')
   end
 
   def test_error_form_for_with_url_and_block
