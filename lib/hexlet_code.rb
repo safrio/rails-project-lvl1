@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'hexlet_code/version'
-require_relative 'hexlet_code/tag'
-require_relative 'hexlet_code/error'
-require_relative 'hexlet_code/form'
-
 module HexletCode
+  autoload :VERSION, 'hexlet_code/version'
+  autoload :HexletCodeError, 'hexlet_code/error'
+  autoload :Tag, 'hexlet_code/tag'
+  autoload :Form, 'hexlet_code/form'
+
   class << self
     def form_for(data, url: '#', method: 'post', &block)
       raise HexletCodeError, 'Block is empty' if block.nil?
