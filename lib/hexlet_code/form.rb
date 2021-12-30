@@ -18,7 +18,7 @@ module HexletCode
     end
 
     def input(name, attrs = {})
-      elements << Object.const_get(input_class(attrs)).new(name: name, value: data[name], attrs: attrs)
+      elements << Object.const_get(input_class(attrs)).new(name: name, value: data.send(name), attrs: attrs)
     end
 
     def submit(value = nil, attrs = {})
