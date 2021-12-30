@@ -3,18 +3,11 @@
 # rubocop:disable Lint/MissingSuper
 
 module HexletCode
-  class Text < Element
+  class Input < ElementWithLabel
     REQUIRED_ATTRS = { type: 'text' }.freeze
 
     def initialize(name:, value:, attrs:)
       @attrs = attrs.merge(name: name, value: value).merge(REQUIRED_ATTRS)
-    end
-
-    def render
-      [
-        label(attrs),
-        Tag.build('input', attrs)
-      ].join Config::LINE_SPLITTER
     end
   end
 end

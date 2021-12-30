@@ -12,7 +12,9 @@ module HexletCode
       @attrs = default_attrs.merge(attrs, REQUIRED_ATTRS)
     end
 
-    def render = Tag.build('input', attrs)
+    def render
+      Tag.build('input', attrs)
+    end
   end
 end
 
