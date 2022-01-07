@@ -4,9 +4,8 @@ module HexletCode
   autoload :Config, 'hexlet_code/config'
   autoload :Element, 'hexlet_code/elements/element'
   autoload :ElementWithLabel, 'hexlet_code/elements/element_with_label'
-  autoload :Input, 'hexlet_code/elements/input'
-  autoload :Textarea, 'hexlet_code/elements/textarea'
   autoload :Submit, 'hexlet_code/elements/submit'
+  autoload :Input, 'hexlet_code/elements/input'
 
   class Form
     attr_accessor :elements, :form_attrs, :data
@@ -18,7 +17,7 @@ module HexletCode
     end
 
     def input(name, attrs = {})
-      elements << Object.const_get(input_class(attrs)).new(name: name, value: data.send(name), attrs: attrs)
+      elements << Input.new(name: name, value: data.send(name), attrs: attrs)
     end
 
     def submit(value = nil, attrs = {})
@@ -27,17 +26,6 @@ module HexletCode
 
     def render
       Tag.build('form', form_attrs) { elements.map(&:render).join Config::LINE_SPLITTER }
-    end
-
-    private
-
-    def input_class(attrs)
-      case attrs[:as]&.to_sym
-      when :text
-        'HexletCode::Textarea'
-      else
-        'HexletCode::Input'
-      end
     end
   end
 end

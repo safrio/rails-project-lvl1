@@ -3,13 +3,13 @@
 # rubocop:disable Lint/MissingSuper
 
 module HexletCode
-  class Textarea < ElementWithLabel
+  class Text < ElementWithLabel
+    TAG = 'textarea'
     DEFAULT_ATTRS = { cols: 20, rows: 40 }.freeze
-    EXTRA_ATTRS = [:as].freeze
 
     def initialize(name:, value:, attrs:)
       @value = value
-      @attrs = DEFAULT_ATTRS.merge(attrs).reject { |attr| EXTRA_ATTRS.include? attr }.merge(name: name)
+      @attrs = DEFAULT_ATTRS.merge(attrs).merge(name: name)
     end
   end
 end

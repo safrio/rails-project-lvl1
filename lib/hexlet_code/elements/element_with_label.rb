@@ -17,7 +17,11 @@ module HexletCode
     end
 
     def tag_name
-      self.class.to_s.split('::').last.downcase
+      Object.const_get(tag_const)
+    end
+
+    def tag_const
+      [self.class.to_s, 'TAG'].join '::'
     end
   end
 end
