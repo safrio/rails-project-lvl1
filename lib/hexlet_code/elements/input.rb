@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Lint/MissingSuper
+
 module HexletCode
   autoload :Default, 'hexlet_code/elements/input/default'
   autoload :Text, 'hexlet_code/elements/input/text'
@@ -25,3 +27,5 @@ module HexletCode
     end
   end
 end
+
+# rubocop:enable Lint/MissingSuper
