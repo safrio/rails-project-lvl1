@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# rubocop:disable Lint/MissingSuper
-
 module HexletCode
-  class Submit < Element
+  class Submit
+    attr_accessor :attrs
+
     REQUIRED_ATTRS = { type: 'submit' }.freeze
 
     def initialize(value:, attrs:)
@@ -17,5 +17,3 @@ module HexletCode
     end
   end
 end
-
-# rubocop:enable Lint/MissingSuper
