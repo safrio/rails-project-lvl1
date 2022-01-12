@@ -3,7 +3,7 @@
 # rubocop:disable Lint/MissingSuper
 
 module HexletCode
-  class Text < ElementWithLabel
+  class Text < Input
     TAG = 'textarea'
     DEFAULT_ATTRS = { cols: 20, rows: 40 }.freeze
 

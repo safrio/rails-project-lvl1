@@ -3,7 +3,7 @@
 # rubocop:disable Lint/MissingSuper
 
 module HexletCode
-  class Default < ElementWithLabel
+  class Default < Input
     TAG = 'input'
     REQUIRED_ATTRS = { type: 'text' }.freeze
 
