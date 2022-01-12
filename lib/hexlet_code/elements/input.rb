@@ -19,11 +19,6 @@ module HexletCode
       [label_tag, main_tag].join Config::LINE_SPLITTER
     end
 
-    def build
-      attrs = @attrs.reject { |attr| [AS_ATTR].include? attr }
-      value ? Tag.build(tag_name, attrs) { value } : Tag.build(tag_name, attrs)
-    end
-
     private
 
     def label_tag
@@ -31,11 +26,8 @@ module HexletCode
     end
 
     def main_tag
-      inner_class.new(name: name, value: value, attrs: attrs).build
-    end
-
-    def tag_name
-      Object.const_get(tag_const)
+      attrs = @attrs.reject { |attr| AS_ATTR == attr }
+      inner_class.new(name: name, value: value, attrs: attrs).render
     end
 
     def label_value
@@ -44,10 +36,6 @@ module HexletCode
 
     def inner_class
       Object.const_get [module_name, class_name].join '::'
-    end
-
-    def tag_const
-      [self.class.to_s, 'TAG'].join '::'
     end
 
     def module_name
